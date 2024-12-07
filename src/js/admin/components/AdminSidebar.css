@@ -1,0 +1,24 @@
+.admin-header-main {
+  border-bottom: 3px solid var(--s);
+}
+.admin-sidebar-container li {
+  margin: 20px 0;
+}
+.admin-sidebar-container a {
+  color: #fff;
+}
+.admin-sidebar-container span {
+  font-weight: 100;
+}
+.admin-sidebar {
+  background-color: var(--p);
+  min-height: 100vh;
+}
+.admin-sidebar-container ul li {
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.admin-sidebar-container ul li.active {
+  background-color: var(--s);
+}

@@ -1,0 +1,103 @@
+.login-img {
+  background: url("../img/team.jpg");
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+}
+.register-container {
+  padding: 200px 20px;
+  height: 100vh;
+}
+.form {
+  padding: 20px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+.form-fields input,
+.form-fields select,
+.form-fields textarea {
+  box-shadow: none !important;
+  border-radius: 0;
+  padding: 8px;
+  outline: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.register-form h1 {
+  font-weight: 400;
+}
+.register-btn {
+  width: 100%;
+  background-color: var(--p);
+  border: transparent;
+  outline: transparent;
+  color: #fff;
+  padding: 5px 10px;
+}
+.b-btn {
+  padding: 8px 15px;
+  color: #fff;
+  outline: transparent;
+  background-color: var(--s);
+  border: 2px solid var(--s);
+  transition: 0.3s all ease;
+  border-radius: 5px;
+  &:hover {
+    border: 2px solid var(--s);
+    background-color: transparent;
+    color: var(--p);
+  }
+}
+.bb-btn {
+  padding: 8px 15px;
+  color: #fff;
+  outline: transparent;
+  background-color: var(--p);
+  border: 2px solid var(--p);
+  transition: 0.3s all ease;
+  border-radius: 5px;
+  &:hover {
+    border: 2px solid var(--p);
+    background-color: transparent;
+    color: var(--p);
+  }
+}
+.apply-code-btn {
+  padding: 8px 15px;
+  width: 180px;
+  background-color: #222f3e;
+  color: #fff;
+  outline: transparent;
+  border: transparent;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+.hr-line {
+  position: relative;
+  margin-bottom: 20px;
+}
+.hr-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 0 !important;
+}
+@media screen and (max-width: 992px) {
+  .login-img {
+    height: 30vh;
+  }
+  .forgot-pass h6 {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,97 @@
+.login-form {
+  min-height: 100vh;
+}
+.register-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+
+  img {
+    width: 50%;
+  }
+  h1 {
+    font-weight: bold;
+  }
+  input {
+    padding: 15px 10px;
+    border-radius: 15px;
+  }
+  button {
+    border-radius: 15px;
+    padding: 15px 20px;
+  }
+}
+.circletop,
+.circletoptwo,
+.circletopthree {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background-color: var(--s);
+  border: 5px solid var(--s);
+  border-radius: 100%;
+}
+.circletoptwo {
+  width: 500px;
+  height: 500px;
+  border: 100px solid var(--s);
+  background-color: transparent;
+}
+.circletopthree {
+  width: 700px;
+  height: 700px;
+  border: 50px solid #eee;
+  background-color: transparent;
+}
+.circlebottom,
+.circlebottomTwo,
+.circlebottomThree {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+  width: 200px;
+  height: 200px;
+  background-color: var(--s);
+  border: 5px solid var(--s);
+  border-radius: 100%;
+}
+.circlebottomTwo {
+  width: 500px;
+  height: 500px;
+  background-color: transparent;
+  border: 100px solid var(--s);
+}
+.circlebottomThree {
+  width: 700px;
+  height: 700px;
+  background-color: transparent;
+  border: 50px solid #eee;
+}
+.dot-c {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  height: 150px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  .dot {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background-color: var(--s);
+    }
+  }
+}

@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&display=swap");
+/* #ebef29 */
+/* #33333 */
+
+:root {
+  --p: #00024c;
+  --s: #19a9e6;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* font-family: "Poppins", sans-serif !important; */
+  list-style: none !important;
+  text-decoration: none !important;
+}
+ul {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.popp {
+  font-family: "Poppins", sans-serif !important;
+}
+.caveat {
+  font-family: "Caveat", cursive;
+  font-weight: 500;
+}
+.center {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (min-width: 993px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: linear-gradient(#333, #000);
+  }
+}

@@ -1,0 +1,83 @@
+.admin-dashboard-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  color: #333;
+}
+.dash-card {
+  width: 23%;
+  background-color: var(--p);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  height: 120px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  padding: 0 40px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.dash-card .count {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.dash-card .icon {
+  font-size: 40px;
+  margin-bottom: 25px;
+  transition: 0.3s all ease;
+}
+.dash-card:hover.dash-card .icon {
+  font-size: 50px;
+}
+/* ================ */
+.chart-container {
+  margin: 50px 0;
+  display: flex;
+  gap: 30px;
+  background-color: #fff;
+  padding: 20px;
+  .chartOne {
+    width: 65%;
+  }
+  .chartTwo {
+    width: 35%;
+  }
+}
+
+/* ================ */
+.admin-recent-things {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.recent-orders,
+.recent-queries {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #333;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.top-buyer {
+  width: 100%;
+  background-color: #fff;
+  color: #333;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 992px) {
+  .dash-card {
+    width: 100%;
+  }
+}

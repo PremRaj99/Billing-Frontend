@@ -1,0 +1,19 @@
+.admin-edit-container {
+  background-color: #fff;
+  margin-top: 20px;
+  border-radius: 10px;
+  padding: 20px;
+  color: #333;
+  padding: 50px 20px;
+}
+
+@media screen and (max-width: 992px) {
+  .edit-admin-user-img {
+    width: 100%;
+    border: 0;
+    margin-bottom: 20px;
+  }
+  .edit-admin-user-form {
+    width: 100%;
+  }
+}

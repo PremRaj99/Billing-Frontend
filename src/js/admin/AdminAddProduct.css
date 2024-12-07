@@ -1,0 +1,28 @@
+.add-product-container {
+  padding: 20px;
+  background-color: #fff;
+  margin-top: 20px;
+  gap: 10px;
+}
+.add-product-container input {
+  border: 1px solid #333;
+  width: 20%;
+  color: #333;
+  outline: transparent;
+}
+.add-product-container input:nth-child(2),
+.add-product-container input:nth-child(3) {
+  padding: 2px;
+  padding-left: 10px;
+}
+.add-product-container select {
+  color: #333;
+  width: 20%;
+}
+.add-product-container button {
+  background-color: var(--p);
+  border: transparent;
+  outline: transparent;
+  color: #fff;
+  padding: 5px 10px;
+}
