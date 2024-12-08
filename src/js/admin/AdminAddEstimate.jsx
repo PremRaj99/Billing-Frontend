@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import AdminLayout from "./components/AdminLayout";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { message } from "antd";
+import { message, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -31,6 +31,7 @@ const AdminAddEstimate = () => {
   });
   const [billingTo, setBillingTo] = useState("");
   const [advancePayment, setAdvancePayment] = useState("0");
+  const [paymentMethod, setPaymentMethod] = useState("phonepe");
   const [discount, setDiscount] = useState(0);
   //! TOTAL
   const [totalTaxableValue, setTotalTaxableValue] = useState(0);
@@ -43,6 +44,7 @@ const AdminAddEstimate = () => {
   // new code
   const [name, setName] = useState("");
   const [nameOptions, setNameOptions] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (name) {
@@ -84,6 +86,9 @@ const AdminAddEstimate = () => {
     if (value === "discount") {
       setDiscount(e.target.value);
       setBalancePayment(totalTaxableValue - advancePayment - e.target.value);
+    }
+    if (value === "paymentMethod") {
+      setPaymentMethod(e.target.value);
     }
   }
 
@@ -242,6 +247,7 @@ const AdminAddEstimate = () => {
 
   //! Add invoice to db
   async function handleAddEstimate(status) {
+    setLoading(true);
     try {
       const estimateObject = {
         estimateId: invoiceId,
@@ -254,6 +260,7 @@ const AdminAddEstimate = () => {
         discount: discount,
         balancePayment: balancePayment,
         status: status,
+        paymentMethod: paymentMethod,
       };
       const res = await axios.post(
         "/api/estimate/add-estimate",
@@ -262,11 +269,14 @@ const AdminAddEstimate = () => {
       if (res.data.success) {
         navigate("/admin-estimate");
         message.success(res.data.message);
+        setLoading(false);
       } else {
         message.error(res.data.message);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   }
 
@@ -480,7 +490,9 @@ const AdminAddEstimate = () => {
                   <label htmlFor="" className="me-3">
                     Matter Name
                   </label>
-                  <h5 className="text-start w-100 m-0">{billingTo?.matterName}</h5>
+                  <h5 className="text-start w-100 m-0">
+                    {billingTo?.matterName}
+                  </h5>
                 </div>
               </div>
 
@@ -1010,6 +1022,31 @@ const AdminAddEstimate = () => {
                           </td>
                         </tr>
                         <tr>
+                          <td>Payment Mode</td>
+                          <td>
+                            <div className="form-fields">
+                              <select
+                                name="paymentMethod"
+                                className="w-100"
+                                value={paymentMethod}
+                                onChange={(e) =>
+                                  handleCharge(e, "paymentMethod")
+                                }
+                                id=""
+                              >
+                                <option value="cash">Cash</option>
+                                <option value="phonepe">PhonePe</option>
+                                <option value="paytm">Paytm</option>
+                                <option value="gpay">GPay</option>
+                                <option value="online">
+                                  Bank Transfer
+                                </option>
+                                <option value="cheque">Cheque</option>
+                              </select>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
                           <td>Rounding Off</td>
                           <td>
                             <div className="form-fields">
@@ -1054,18 +1091,35 @@ const AdminAddEstimate = () => {
             </div>
           </div>
           <button
-            disabled={balancePayment === 0}
+            disabled={balancePayment === 0 || loading}
+            style={{ cursor: balancePayment === 0 ? "not-allowed" : "pointer" }}
             onClick={(e) => handleAddEstimate("unpaid")}
             className="mt-3 mx-2 b-btn py-2"
           >
-            Save Estimate as Unpaid
+            {loading ? (
+              <>
+                {" "}
+                <Spin />
+                "loading..."
+              </>
+            ) : (
+              "Save Estimate as Unpaid"
+            )}
           </button>
 
           <button
+            disabled={loading}
             onClick={(e) => handleAddEstimate("paid")}
             className="mt-3 mx-2 b-btn py-2"
           >
-            Save Estimate as Paid
+            {loading ? (
+              <>
+                <Spin />
+                "Adding Estimate..."
+              </>
+            ) : (
+              "Save Estimate as Paid"
+            )}
           </button>
         </>
       )}

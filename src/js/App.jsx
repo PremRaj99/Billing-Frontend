@@ -20,7 +20,7 @@ import AdminEstimate from "./admin/AdminEstimate";
 import AdminAddEstimate from "./admin/AdminAddEstimate";
 import AdminEditEstimate from "./admin/AdminEditEstimate";
 import AdminPrintEstimate from "./admin/AdminPrintEstimate";
-import AdminEstimateHistory from "./admin/AdminEstimateHistory";
+// import AdminEstimateHistory from "./admin/AdminEstimateHistory";
 import AdminQuotation from "./admin/AdminQuotation";
 import AdminAddQuotation from "./admin/AdminAddQuotation";
 import AdminEditQuotation from "./admin/AdminEditQuotation";
@@ -147,14 +147,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route
+        {/* <Route
           path="/admin-estimate-history"
           element={
             <ProtectedRoute>
               <AdminEstimateHistory />
             </ProtectedRoute>
           }
-        />
+        /> */}
         <Route
           path="/admin-quotation"
           element={

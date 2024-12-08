@@ -53,7 +53,7 @@ const AdminSidebar = () => {
             Estimate
           </Link>
         </li>
-        <li
+        {/* <li
           className={`${
             location.pathname === "/admin-estimate-history" && "active"
           }`}
@@ -62,7 +62,7 @@ const AdminSidebar = () => {
             <HistoryIcon className="me-2" />
             Estimate History
           </Link>
-        </li>
+        </li> */}
         <li className={`${location.pathname === "/admin-invoice" && "active"}`}>
           <Link to="/admin-invoice">
             <ReceiptIcon className="me-2" />

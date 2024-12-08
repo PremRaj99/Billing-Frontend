@@ -29,27 +29,34 @@ const AdminEstimate = () => {
   const [showOnlyModelTable, setShowOnlyModelTable] = useState(false);
   const [billHistory, setBillHistory] = useState([]);
   const [selectedEstimateId, setSelectedEstimateId] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [receiveAmountData, setReceiveAmountData] = useState({
     amount: "",
-    paymentDate: "",
-    paymentMethod: "",
+    paymentDate: new Date().toISOString().split("T")[0],
+    paymentMethod: "phonepe",
   });
 
-  const showModal = (bill) => {
+  const showModal = (bill, index) => {
     setSelectedBill(bill); // Set the selected bill's data
     setSelectedEstimateId(bill._id);
     setIsModalOpen(true); // Open the modal
+    setSelectedIndex(index);
   };
 
-  const handleModalClose = () => {
+  const handleModalOK = async (e) => {
+    await handleReceiveAmountDataSubmit(e, selectedEstimateId);
     setIsModalOpen(false);
+    setSelectedBill(null); // Clear the selected bill data when closing the modal
+  };
+
+  const handleModalClose = (e) => {
+    setIsModalOpen(false); // Close the modal
     setSelectedBill(null); // Clear the selected bill data when closing the modal
   };
 
   function handleClearFilter() {
     setQuery("");
     setSearchQuery("");
-    // setSelectedDate("");
     setSelectedFrom("");
     setSelectedTo("");
     setSelectedMonth(null);
@@ -73,14 +80,6 @@ const AdminEstimate = () => {
           ?.includes(query.toLowerCase());
       });
     }
-    // if (selectedDate) {
-    //   filtered = filtered?.filter((item) => {
-    //     return (
-    //       new Date(item?.createdAt).toDateString() ===
-    //       new Date(selectedDate).toDateString()
-    //     );
-    //   });
-    // }
     if (selectedFrom || selectedTo) {
       filtered = filtered?.filter((item) => {
         const itemDate = new Date(item?.createdAt);
@@ -170,9 +169,9 @@ const AdminEstimate = () => {
   const getReceiveAmountHistory = async (id) => {
     try {
       const res = await axios.get(`/api/receivePayment/${id}`);
-      console.log(res.data)
+      console.log(res.data);
       if (res.data.success) {
-        setBillHistory(res.data);
+        setBillHistory(res.data.data);
       } else {
         message.error(res.data.message);
       }
@@ -202,6 +201,20 @@ const AdminEstimate = () => {
           totalValue: res.data.totalValue,
           advancePayment: res.data.advancePayment,
           balancePayment: res.data.balancePayment,
+        });
+        setInvoice((prevInvoice) => {
+          const updatedInvoice = [...prevInvoice];
+          updatedInvoice[selectedIndex] = {
+            ...selectedBill,
+            totalValue: res.data.totalValue,
+            advancePayment: res.data.advancePayment,
+            balancePayment: res.data.balancePayment,
+          };
+          return updatedInvoice;
+        });
+        setReceiveAmountData({
+          ...receiveAmountData,
+          amount: "",
         });
         getReceiveAmountHistory(selectedEstimateId);
       } else {
@@ -388,7 +401,7 @@ const AdminEstimate = () => {
                         <div className="d-flex gap-2">
                           <PaymentIcon
                             style={{ cursor: "pointer" }}
-                            onClick={() => showModal(item)}
+                            onClick={() => showModal(item, index)}
                             className="text-primary"
                           />
                           <Link
@@ -423,7 +436,7 @@ const AdminEstimate = () => {
       <Modal
         title={`Details for Bill ${selectedBill?.estimateId || ""}`}
         open={isModalOpen}
-        onOk={handleModalClose}
+        onOk={handleModalOK}
         onCancel={handleModalClose}
         centered
         width={700} // Wider layout for better content fit
@@ -633,40 +646,78 @@ const AdminEstimate = () => {
                   >
                     Date
                   </th>
+                  {!showOnlyModelTable && (
+                  <th
+                    style={{
+                      backgroundColor: "#f9f9f9",
+                      padding: "12px",
+                      border: "1px solid #e0e0e0",
+                      textAlign: "left",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Action
+                  </th>
+                  )}
                 </tr>
               </thead>
               <tbody>
-                {billHistory?.map((bill, index) => (
-                  <tr key={index}>
-                    <td
-                      style={{
-                        padding: "10px",
-                        border: "1px solid #e0e0e0",
-                        color: "#555",
-                      }}
-                    >
-                      {bill.paymentAmount}
-                    </td>
-                    <td
-                      style={{
-                        padding: "10px",
-                        border: "1px solid #e0e0e0",
-                        color: "#555",
-                      }}
-                    >
-                      {bill.paymentMethod}
-                    </td>
-                    <td
-                      style={{
-                        padding: "10px",
-                        border: "1px solid #e0e0e0",
-                        color: "#555",
-                      }}
-                    >
-                      {bill.paymentDate.toDateString().substring(4)}
-                    </td>
-                  </tr>
-                ))}
+                {billHistory &&
+                  billHistory?.map((bill, index) => (
+                    <tr key={index}>
+                      <td
+                        style={{
+                          padding: "10px",
+                          border: "1px solid #e0e0e0",
+                          color: "#555",
+                        }}
+                      >
+                        {bill.paymentAmount}
+                      </td>
+                      <td
+                        style={{
+                          padding: "10px",
+                          border: "1px solid #e0e0e0",
+                          color: "#555",
+                        }}
+                      >
+                        {bill.paymentMethod}
+                      </td>
+                      <td
+                        style={{
+                          padding: "10px",
+                          border: "1px solid #e0e0e0",
+                          color: "#555",
+                        }}
+                      >
+                        {/* {bill?.paymentDate?.toDateString()?.substring(4)} */}
+                        {new Date(bill.paymentDate).toLocaleDateString(
+                          "en-GB",
+                          {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                          }
+                        )}
+                        {/* dd-mm-yyyy */}
+                      </td>
+                      {!showOnlyModelTable && (
+                      <td
+                        style={{
+                          padding: "10px",
+                          border: "1px solid #e0e0e0",
+                          color: "#555",
+                        }}
+                      >
+                        <DeleteIcon
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {}}
+                            className="text-danger"
+                          />
+                      </td>
+                    )}
+                    </tr>
+                  ))}
               </tbody>
             </table>
             {!showOnlyModelTable && (

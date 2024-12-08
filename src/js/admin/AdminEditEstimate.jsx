@@ -439,7 +439,9 @@ const AdminEditEstimate = () => {
                 </div>
                 <div className="form-fields mb-3 center">
                   <label htmlFor="">Matter Name</label>
-                  <h5 className="w-100 text-start m-0">{billingTo?.matterName}</h5>
+                  <h5 className="w-100 text-start m-0">
+                    {billingTo?.matterName}
+                  </h5>
                 </div>
               </div>
               {/* Invoice Details  */}
@@ -743,7 +745,7 @@ const AdminEditEstimate = () => {
                           <td width={100}>{index + 1}</td>
                           <td>
                             <div className="form-fields">
-                            <input
+                              <input
                                 value={item?.name}
                                 type="text"
                                 list="productOptionsList"
@@ -934,6 +936,8 @@ const AdminEditEstimate = () => {
                             <div className="form-fields">
                               <input
                                 type="text"
+                                disabled={true}
+                                style={{ cursor: "not-allowed" }}
                                 name="advancePayment"
                                 value={advancePayment}
                                 onChange={(e) => handleCharge(e, "advance")}
